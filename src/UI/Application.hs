@@ -6,7 +6,7 @@ import GI.Gio.Objects.Application hiding(applicationNew,Application)
 import GI.Gio.Flags
 import qualified GI.Gtk.Functions as Gtk
 import GI.Gtk.Objects.Application
-import UI.Panel(createMain)
+import UI.Panel(createMainWindow)
 
 run2048::IO()
 run2048=do
@@ -19,7 +19,7 @@ run2048=do
 
 initApp::Application->IO()
 initApp app=do
-  onApplicationActivate app $ createMain  app
+  onApplicationActivate app $ createMainWindow  app
   onApplicationShutdown app $ print "Application is Destroy"
   applicationRun app Nothing
   return ()
