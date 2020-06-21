@@ -1,0 +1,70 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: bb43e9510e9c6341b6c885a230960eca7ed1398c866c30c2e76b9581d9fc01a6
+
+name:           HS2048
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/GordonGgx/HS2048#readme>
+homepage:       https://github.com/https://github.com/GordonGgx/HS2048#readme
+bug-reports:    https://github.com/https://github.com/GordonGgx/HS2048/issues
+author:         ggx
+maintainer:     abcgg8@qq.com
+copyright:      2020 ggx
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/https://github.com/GordonGgx/HS2048
+
+library
+  exposed-modules:
+      UI.Application
+      UI.Color
+      UI.Panel
+  other-modules:
+      Paths_HS2048
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , gi-gio
+    , gi-gtk
+  default-language: Haskell2010
+
+executable HS2048
+  main-is: Main.hs
+  other-modules:
+      Paths_HS2048
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HS2048
+    , base >=4.7 && <5
+    , gi-gio
+    , gi-gtk
+  default-language: Haskell2010
+
+test-suite HS2048-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_HS2048
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HS2048
+    , base >=4.7 && <5
+    , gi-gio
+    , gi-gtk
+  default-language: Haskell2010
