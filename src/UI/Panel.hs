@@ -10,6 +10,7 @@ import GI.Gtk.Objects.ApplicationWindow
 import GI.Gtk.Objects.Application
 import GI.Gtk.Objects.Window
 import GI.Gtk.Objects.Container(containerAdd)
+import GI.Gdk.Structs.EventKey
 import UI.Color
 
 createMainWindow::Application->IO()
@@ -40,4 +41,18 @@ initMainPan window=do
   headerBarPackEnd headerBar score
   windowSetTitlebar window $ Just headerBar
   -- Create Game Pane
+  grid<-gridNew
+  setGridColumnHomogeneous grid True
+  setGridRowHomogeneous grid  True
+  gridInsertColumn grid 4
+  gridInsertRow grid 4
+  containerAdd window grid
+  -- register key event on window
+  onWidgetKeyPressEvent window doKeyPressed
+  return ()
 
+doKeyPressed::EventKey->IO Bool
+doKeyPressed event=do
+  keyString<-getEventKeyString event
+  mapM_ print keyString
+  return False
