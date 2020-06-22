@@ -24,7 +24,14 @@ dependencies:
 - gi-gtk
 - gi-gio
 - gi-gdk
+- gi-glib
 - text
+- transformers
+- old-time
+- haskell-gi-base
+- gi-cairo
+- gi-gdkpixbuf
+- cairo
 
 library:
   source-dirs: src

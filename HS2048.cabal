@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f3222a8174e6ef14fa057f10fe2f2aa9e129b0e21068bc2b8f1d40bb92b36637
+-- hash: e07dc59dae28d56e4f15daaa148a992598cf935edbff54018d5d7d2827b02588
 
 name:           HS2048
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       UI.Application
+      UI.Clock
       UI.Color
       UI.Panel
   other-modules:
@@ -36,10 +37,17 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , cairo
+    , gi-cairo
     , gi-gdk
+    , gi-gdkpixbuf
     , gi-gio
+    , gi-glib
     , gi-gtk
+    , haskell-gi-base
+    , old-time
     , text
+    , transformers
   default-language: Haskell2010
 
 executable HS2048
@@ -52,10 +60,17 @@ executable HS2048
   build-depends:
       HS2048
     , base >=4.7 && <5
+    , cairo
+    , gi-cairo
     , gi-gdk
+    , gi-gdkpixbuf
     , gi-gio
+    , gi-glib
     , gi-gtk
+    , haskell-gi-base
+    , old-time
     , text
+    , transformers
   default-language: Haskell2010
 
 test-suite HS2048-test
@@ -69,8 +84,15 @@ test-suite HS2048-test
   build-depends:
       HS2048
     , base >=4.7 && <5
+    , cairo
+    , gi-cairo
     , gi-gdk
+    , gi-gdkpixbuf
     , gi-gio
+    , gi-glib
     , gi-gtk
+    , haskell-gi-base
+    , old-time
     , text
+    , transformers
   default-language: Haskell2010

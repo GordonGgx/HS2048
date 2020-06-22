@@ -1,6 +1,7 @@
 module Main where
 
 import UI.Application
+import UI.Clock
 
 main :: IO ()
-main = run2048
+main = main'
