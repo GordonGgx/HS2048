@@ -11,16 +11,32 @@ import GI.Gtk.Objects.Application
 import GI.Gtk.Objects.Window
 import GI.Gtk.Objects.Container(containerAdd)
 import GI.Gdk.Structs.EventKey
+import qualified GI.Gtk as GTK
 import UI.Color
+import qualified GI.GLib as GLib
+import qualified GI.Gio as Gio
+import GI.Gdk.Objects.Display(displayGetDefaultScreen,displayGetDefault)
+import GI.Gtk.Objects.Widget(widgetGetStyleContext,widgetSetName)
+
 
 createMainWindow::Application->IO()
 createMainWindow app=do
   mainWindow<-applicationWindowNew app
-  parseColor "#c0c0c0" >>=widgetOverrideBackgroundColor mainWindow [StateFlagsNormal]
+  widgetSetName mainWindow "myWindow"
+  css<-cssProviderNew
+  display<-displayGetDefault
+  d<-case display of
+      Just d->return d
+      Nothing->error "aaaa"
+  screen<-displayGetDefaultScreen  d
+  cssProviderLoadFromPath css "resources/css/demo.css"
+  context<-widgetGetStyleContext mainWindow
+  styleContextAddProvider context css 600
+--  parseColor "#c0c0c0" >>=widgetOverrideBackgroundColor mainWindow [StateFlagsNormal]
   windowSetDefaultSize mainWindow 500 500
   windowSetTitle mainWindow "HS2048"
   windowSetPosition mainWindow WindowPositionCenterAlways
-  windowSetIconFromFile mainWindow "resources/icon.png"
+  windowSetIconFromFile mainWindow "resources/image/icon.png"
   onWidgetDestroy mainWindow mainQuit
   initMainPan mainWindow
   widgetShowAll mainWindow
@@ -47,6 +63,16 @@ initMainPan window=do
   gridInsertColumn grid 4
   gridInsertRow grid 4
   containerAdd window grid
+  btn<-buttonNewWithLabel "测试按钮"
+  gridAttach grid btn 0 0 1 1
+  btn1<-buttonNewWithLabel "测试按钮1"
+  gridAttach grid btn1 1 1 1 1
+  GLib.timeoutAdd GLib.PRIORITY_DEFAULT 1000 $ do
+    setButtonXalign btn 0.9
+    return True
+  GLib.timeoutAdd GLib.PRIORITY_DEFAULT 1500 $ do
+      setButtonXalign btn 0.5
+      return False
   -- register key event on window
   onWidgetKeyPressEvent window doKeyPressed
   return ()
@@ -56,3 +82,5 @@ doKeyPressed event=do
   keyString<-getEventKeyString event
   mapM_ print keyString
   return False
+
+
